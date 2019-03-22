@@ -1,11 +1,19 @@
+"""Модуль содержит модели базы данных магазина."""
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class User(db.Model):
-	""" Этот класс описывет покупателя книг, создавая в базе параметры:
-	имя, фамилия, год рождения, адрес электронной почты, логин, пароль,
-	заказы 
+	""" Модель пользователя.
+
+	Поля:
+	1. имя,
+	2. фамилия, 
+	3. год рождения, 
+	4. адрес электронной почты, 
+	5. логин, 
+	6. пароль,
+	7. заказы. 
 	"""
 	__tablename__ = 'user'
 	id = db.Column(db.Integer, primary_key=True)
@@ -22,8 +30,12 @@ class User(db.Model):
 		return f'Customer {self.first_name} {self.last_name}'
 
 class Order(db.Model):
-	""" Этот класс создает запись о заказе покупателя с полями: 
-	дата заказа, id покупателя, заказанная книга.
+	""" Модель заказа.
+
+	Поля:
+	1. дата заказа,
+	2. id пользователя, 
+	3. заказанная книга. 
 	"""
 	__tablename__ = 'order'
 	id = db.Column(db.Integer, primary_key=True)
@@ -35,8 +47,16 @@ class Order(db.Model):
 		return f'Order {self.id} {self.order_date}'
 
 class Author(db.Model):
-	""" Этот класс создет запись о авторе книги со следующими полями:
-	имя, фамилия, дата рождения, описание автора, рейтинг, его книги, отзывы.
+	""" Модель автора.
+
+	Поля:
+	1. имя,
+	2. фамилия, 
+	3. дата рождения, 
+	4. описание,
+	5. рейтинг,
+	6. книги,
+	7. отзыв.
 	"""
 	__tablename__ = 'author'
 	id = db.Column(db.Integer, primary_key=True)
@@ -52,8 +72,11 @@ class Author(db.Model):
 		return f'Author {self.first_name} {self.last_name}'
 
 class Genre(db.Model):
-	""" Этот класс создает запись о жанре книги с такими полями как:
-	описание, книги.
+	""" Модель жанра.
+
+	Поля:
+	1. описание,
+	2. книги.
 	"""
 	__tablename__ = 'genre'
 	id = db.Column(db.Integer, primary_key=True)
@@ -64,8 +87,16 @@ class Genre(db.Model):
 		return f'Genre {self.description}'
 
 class Book(db.Model):
-	""" Этот класс создает запись о книге с полями:
-	название, автор, жанр, описание, цена, рейтинг, отзывы.
+	""" Модель книги.
+
+	Поля:
+	1. название,
+	2. id автора, 
+	3. id жанра, 
+	4. описание,
+	5. цена,
+	6. рейтинг,
+	7. отзыв. 
 	"""
 	__tablename__ = 'book'
 	id = db.Column(db.Integer, primary_key=True)
@@ -81,8 +112,11 @@ class Book(db.Model):
 		return f'Book {self.name}'
 
 class OrderBook(db.Model):
-	""" Этот класс создает запись о заказе с полями:
-	клиент, сделавший заказ и номер заказа.
+	""" Модель заказа книги.
+
+	Поля:
+	1. id пользователя,
+	2. id заказа.
 	"""
 	__tablename__ = 'orderBook'
 	id = db.Column(db.Integer, primary_key=True)
@@ -93,8 +127,11 @@ class OrderBook(db.Model):
 		return f'OrderBook {self.id} {self.order_id} {self.user_id}'		
     
 class BookFeedback(db.Model):
-	""" Этот класс создает запись о отзыве на книгу с полями:
-	номер книги, отзыв.
+	""" Модель отзыва на книгу.
+
+	Поля:
+	1. id автора книги,
+	2. отзыв.
 	"""
 	__tablename__ = 'bookFeedback'
 	id = db.Column(db.Integer, primary_key=True)
@@ -105,8 +142,12 @@ class BookFeedback(db.Model):
 		return f'BookFeedback {self.feedback}'
 
 class AuthorFeedback(db.Model):
-	""" Этот класс создает запись о отзыве на автора с полями:
-	номер автора, отзыв.
+
+	""" Модель отзыва на автора.
+
+	Поля:
+	1. id автора, 
+	2. отзыв. 
 	"""
 	__tablename__ = 'authorFeedback'
 	id = db.Column(db.Integer, primary_key=True)
