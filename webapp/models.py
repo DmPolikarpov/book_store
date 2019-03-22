@@ -103,6 +103,9 @@ class Genre(db.Model):
     description = db.Column(db.Text, nullable=False)
     books = db.relationship('Book')
     
+    def __repr__(self):
+        return f'Genre {self.description}'
+
 class BookFeedback(db.Model):
     """ Модель отзыва на книгу.
     Поля:
