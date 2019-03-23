@@ -1,19 +1,9 @@
-"""Модуль содержит модели базы данных магазина."""
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 class User(db.Model):
-    """ Модель пользователя.
-    Поля:
-    1. имя,
-    2. фамилия, 
-    3. год рождения, 
-    4. адрес электронной почты, 
-    5. логин, 
-    6. пароль,
-    7. заказы. 
-    """
+    """ Модель пользователя. """
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
@@ -37,12 +27,7 @@ Class Order_book(db.Model):
         return f'Order_book {self.book_id} {self.order_id}'
 
 class Order(db.Model):
-    """ Модель заказа.
-    Поля:
-    1. дата заказа,
-    2. id пользователя, 
-    3. заказанная книга. 
-    """
+    """ Модель заказа. """
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
@@ -52,16 +37,7 @@ class Order(db.Model):
         return f'Order {self.id} {self.order_date}'
 
 class Book(db.Model):
-    """ Модель книги.
-    Поля:
-    1. название,
-    2. id автора, 
-    3. id жанра, 
-    4. описание,
-    5. цена,
-    6. рейтинг,
-    7. отзыв. 
-    """
+    """ Модель книги. """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
@@ -76,16 +52,7 @@ class Book(db.Model):
         return f'Book {self.name}'
 
 class Author(db.Model):
-    """ Модель автора.
-    Поля:
-    1. имя,
-    2. фамилия, 
-    3. дата рождения, 
-    4. описание,
-    5. рейтинг,
-    6. книги,
-    7. отзыв.
-    """
+    """ Модель автора. """
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
@@ -99,11 +66,7 @@ class Author(db.Model):
         return f'Author {self.first_name} {self.last_name}'
 
 class BookFeedback(db.Model):
-    """ Модель отзыва на книгу.
-    Поля:
-    1. id автора книги,
-    2. отзыв.
-    """
+    """ Модель отзыва на книгу. """
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=True)
     feedback = db.Column(db.Text, nullable=True)
@@ -113,11 +76,7 @@ class BookFeedback(db.Model):
         return f'BookFeedback {self.feedback}'
 
 class AuthorFeedback(db.Model):
-    """ Модель отзыва на автора.
-    Поля:
-    1. id автора, 
-    2. отзыв. 
-    """
+    """ Модель отзыва на автора. """
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=True)
     feedback = db.Column(db.Text, nullable=True)
