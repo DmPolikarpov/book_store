@@ -18,7 +18,7 @@ class User(db.Model):
     def __repr__(self):
         return f'User {self.first_name} {self.last_name}'
 
-Class Order_book(db.Model):
+class OrderBook(db.Model):
     """ Вспомогательная модель для реализации отношения 'многие ко многим' между моделями Заказы и Книги"""
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), primary_key=True)
@@ -31,7 +31,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
-    books = db.relationship('Book', backref='order', lazy=True)   
+    books = db.relationship('OrderBook', backref='order_id', lazy=True)   
     
     def __repr__(self):
         return f'Order {self.id} {self.order_date}'
@@ -46,7 +46,7 @@ class Book(db.Model):
     price = db.Column(db.Decimal, nullable=False)    
     rating = db.Column(db.Integer, nullable=True)
     feedback = db.relationship('BookFeedback', backref='book', lazy=True)
-    orders = db.relationship('Order', backref='book', lazy=True)
+    orders = db.relationship('OrderBook', backref='book_id', lazy=True)
     
     def __repr__(self):
         return f'Book {self.name}'
