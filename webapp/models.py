@@ -20,8 +20,8 @@ class User(db.Model):
 
 class OrderBook(db.Model):
     """ Вспомогательная модель для реализации отношения 'многие ко многим' между моделями Заказы и Книги"""
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
     def __repr__(self):
         return f'Order_book {self.book_id} {self.order_id}'
