@@ -22,15 +22,19 @@ class User(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)    
     password = db.Column(db.String, nullable=False)
     orders = db.relationship('Order', backref='user', lazy=True)
+    book_feedbacks = db.relationship('BookFeedback', backref='user', lazy=True)
+    author_feedbacks = db.relationship('AuthorFeedback', backref='user', lazy=True)
 
     def __repr__(self):
         return f'User {self.first_name} {self.last_name}'
 
-#вспомогательная таблица для создания отношения "многие ко многим" между моделями Заказы и Книги
-books = db.Table('books',
-    db.Column('book_id', db.Integer, db.ForeignKey('book.id'), primary_key=True),
-    db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True)
-)
+Class Order_book(db.Model):
+    """ Вспомогательная модель для реализации отношения 'многие ко многим' между моделями Заказы и Книги"""
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), primary_key=True)
+
+    def __repr__(self):
+        return f'Order_book {self.book_id} {self.order_id}'
 
 class Order(db.Model):
     """ Модель заказа.
@@ -42,7 +46,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
-    books = db.relationship('Book', secondary=books, lazy='subquery', backref=db.backref('orders', lazy=True))   
+    books = db.relationship('Book', backref='order', lazy=True)   
     
     def __repr__(self):
         return f'Order {self.id} {self.order_date}'
@@ -61,11 +65,12 @@ class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
-    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
+    genre = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False) 
-    price = db.Column(db.Integer, nullable=False)    
+    price = db.Column(db.Decimal, nullable=False)    
     rating = db.Column(db.Integer, nullable=True)
     feedback = db.relationship('BookFeedback', backref='book', lazy=True)
+    orders = db.relationship('Order', backref='book', lazy=True)
     
     def __repr__(self):
         return f'Book {self.name}'
@@ -93,19 +98,6 @@ class Author(db.Model):
     def __repr__(self):
         return f'Author {self.first_name} {self.last_name}'
 
-class Genre(db.Model):
-    """ Модель жанра.
-    Поля:
-    1. описание,
-    2. книги.
-    """
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.Text, nullable=False)
-    books = db.relationship('Book')
-    
-    def __repr__(self):
-        return f'Genre {self.description}'
-
 class BookFeedback(db.Model):
     """ Модель отзыва на книгу.
     Поля:
@@ -115,6 +107,7 @@ class BookFeedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=True)
     feedback = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'BookFeedback {self.feedback}'
@@ -128,6 +121,7 @@ class AuthorFeedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=True)
     feedback = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'<AuthorFeedback {self.feedback}'
