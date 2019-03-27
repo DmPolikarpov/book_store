@@ -19,7 +19,7 @@ with app.app_context():
         print('Пароли не одинаковы')
         sys.exit(0)
 
-    new_user = User(username=username) #role='admin')
+    new_user = User(username=username, role='admin')
     new_user.set_password(password)
 
     db.session.add(new_user)

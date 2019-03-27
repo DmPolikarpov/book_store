@@ -1,24 +1,24 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
 
 db = SQLAlchemy()
 
 class User(db.Model, UserMixin):
     """ Модель пользователя. """
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String, nullable=False)
-    last_name = db.Column(db.String, nullable=False)
-    birth_date = db.Column(db.DateTime, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False) 
+    first_name = db.Column(db.String, nullable=True)
+    last_name = db.Column(db.String, nullable=True)
+    birth_date = db.Column(db.DateTime, nullable=True)
+    email = db.Column(db.String, unique=True, nullable=True) 
     username = db.Column(db.String, unique=True, nullable=False)    
     password = db.Column(db.String, nullable=False)
-    orders = db.relationship('Order', backref='user', lazy=True)
-    book_feedbacks = db.relationship('BookFeedback', backref='user', lazy=True)
-    author_feedbacks = db.relationship('AuthorFeedback', backref='user', lazy=True)
-    # role = db.Column(db.String(10), nullable=False)
-
+    role = db.Column(db.String(10), nullable=True)
+    books = db.relationship('Book', secondary='order')
+    book_feedbacks = db.relationship('BookFeedback', backref='feedback_author', lazy=True)
+    author_feedbacks = db.relationship('AuthorFeedback', backref='feedback_author', lazy=True)
+    
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
@@ -28,20 +28,14 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'User {self.first_name} {self.last_name}'
 
-class OrderBook(db.Model):
-    """ Вспомогательная модель для реализации отношения 'многие ко многим' между моделями Заказы и Книги"""
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), primary_key=True)
-
-    def __repr__(self):
-        return f'Order_book {self.book_id} {self.order_id}'
-
 class Order(db.Model):
     """ Модель заказа. """
     id = db.Column(db.Integer, primary_key=True)
-    order_date = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) 
-    books = db.relationship('OrderBook', backref='order_id', lazy=True)   
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
+    order_date = db.Column(db.DateTime, default=datetime.now)
+    users = db.relationship('User', backref=db.backref('order', cascade='all, delete-orphan'))
+    books = db.relationship('Book', backref=db.backref('order', cascade='all, delete-orphan'))   
     
     def __repr__(self):
         return f'Order {self.id} {self.order_date}'
@@ -50,13 +44,13 @@ class Book(db.Model):
     """ Модель книги. """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=True)
     genre = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False) 
-    price = db.Column(db.Integer, nullable=False)    
+    price = db.Column(db.Numeric, nullable=False)    
     rating = db.Column(db.Integer, nullable=True)
     feedback = db.relationship('BookFeedback', backref='book', lazy=True)
-    orders = db.relationship('OrderBook', backref='book_id', lazy=True)
+    users = db.relationship('User', secondary='order')
     
     def __repr__(self):
         return f'Book {self.name}'
@@ -69,8 +63,8 @@ class Author(db.Model):
     birth_date = db.Column(db.DateTime, nullable=False)
     description = db.Column(db.Text, nullable=False) 
     rating = db.Column(db.Integer, nullable=True)
-    books = db.relationship('Book', backref='author', lazy=True)
-    feedback = db.relationship('AuthorFeedback', backref='author', lazy=True)
+    books = db.relationship('Book', backref='book_author', lazy=True)
+    feedbacks = db.relationship('AuthorFeedback', backref='author', lazy=True)
     
     def __repr__(self):
         return f'Author {self.first_name} {self.last_name}'
@@ -93,10 +87,5 @@ class AuthorFeedback(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f'<AuthorFeedback {self.feedback}'
-
-
-
-
-
+        return f'AuthorFeedback {self.feedback}'
 
