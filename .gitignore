@@ -105,4 +105,4 @@ venv.bak/
 
 #my files
 webapp.db
-config.py
+webapp/config.py
