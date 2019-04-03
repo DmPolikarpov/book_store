@@ -1,4 +1,4 @@
-from webapp.db import db, Author, BookFeedback, Order 
+from webapp.db import db
 
 
 class Book(db.Model):
@@ -11,7 +11,7 @@ class Book(db.Model):
     image = db.Column(db.String, nullable=True) 
     price = db.Column(db.Numeric, nullable=False)    
     rating = db.Column(db.Integer, nullable=True)
-    feedbacks = db.relationship('BookFeedback', backref='feedback', lazy=True)
+    feedbacks = db.relationship('BookFeedback', lazy=True)
 
     users = db.relationship('Order', backref='order')
     

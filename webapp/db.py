@@ -1,6 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-from webapp.book.models import Book
-from webapp.user.models import User
 from datetime import datetime
 
 db = SQLAlchemy()
