@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from webapp.book.models import Book
+from webapp.user.models import User
 from datetime import datetime
 
 db = SQLAlchemy()
@@ -9,8 +11,8 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'))
     order_date = db.Column(db.DateTime, default=datetime.now)
-    #users = db.relationship('User', backref=db.backref('order', cascade='all, delete-orphan'))
-    #books = db.relationship('Book', backref=db.backref('order', cascade='all, delete-orphan'))   
+    users = db.relationship('User', backref='order')
+    books = db.relationship('Book', backref='order')   
     
     def __repr__(self):
         return f'Order {self.id} {self.order_date}'
@@ -23,7 +25,7 @@ class Author(db.Model):
     birth_date = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False) 
     rating = db.Column(db.Integer, nullable=True)
-    #books = db.relationship('Book', backref='book_author', lazy=True)
+    books = db.relationship('Book', backref='book_author', lazy=True)
     feedbacks = db.relationship('AuthorFeedback', backref='author', lazy=True)
     
     def __repr__(self):
@@ -32,7 +34,7 @@ class Author(db.Model):
 class BookFeedback(db.Model):
     """ Модель отзыва на книгу. """
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=True)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     feedback = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

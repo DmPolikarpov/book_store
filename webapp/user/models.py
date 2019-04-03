@@ -1,5 +1,5 @@
-from webapp.db import db
-#from webapp.book.models import Book
+from webapp.db import db, BookFeedback, AuthorFeedback, Order
+from webapp.book.models import Book
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String, unique=True, nullable=False)    
     password = db.Column(db.String, nullable=False)
     role = db.Column(db.String(10), index=True, nullable=True)
-    #books = db.relationship('Book', secondary='order')
+    books = db.relationship('Order', backref='order_book')
     book_feedbacks = db.relationship('BookFeedback', backref='feedback_author', lazy=True)
     author_feedbacks = db.relationship('AuthorFeedback', backref='feedback_author', lazy=True)
     
