@@ -1,6 +1,7 @@
 import psycopg2
 import csv
-from webapp.models import db, Book, Author
+from webapp.db import db
+from webapp.book.models import Book
 from webapp import create_app
 
 conn = psycopg2.connect(host='localhost', user='dmitry', password='q1w2e3r4t5y6', dbname='bookstore')
