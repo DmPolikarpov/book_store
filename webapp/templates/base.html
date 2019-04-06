@@ -12,9 +12,35 @@
         <title>{{ page_title }}</title>
     </head>
     <body>
-        <div class='container'>
-            <h1>{{ page_title }}</h1>
-            {% block content %}{% endblock %}
+        <div class='container-fluid'>
+        <div class='row'>
+            <div class='col-1' style="background: rgb(215,17,27)">
+            </div>
+            <div class='col-10'>
+                <!--шапка сайта-->
+                <div class='row'>
+                    <div class='col-6'>
+                        <img src="/media/logo.png" class="img-fluid" alt="Responsive image">
+                    </div>
+                    <div class='col-6'>
+                        <img src="media/tel.png" class="img-fluid" alt="Responsive image">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="background-color: rgb(255,255,255); color: rgb(215,17,27)">
+                        {% include 'menu.html' %} 
+                    </div>                   
+                </div>
+                <!--основной контент-->
+                <div class='row' style="padding: 15px">
+                    {{ url_for('static', filename='media/index.css') }}
+                    {% block content %}{% endblock %}
+                    
+                </div>
+            </div>
+            <div class='col-1' style="background: rgb(215,17,27)">                
+            </div>
+        </div>
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
