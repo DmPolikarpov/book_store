@@ -1,24 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(0,0,0)">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(0,0,0)">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="nav nav-pills flex-column flex-sm-row">
       <li class="nav-item active">
         <a class="nav-link" style="color: rgb(215,17,27)" href="/">Главная</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: rgb(215,17,27)" href="#">Книги</a>
+        <a class="nav-link" style="color: rgb(215,17,27)" href="{{ url_for('book.book_index') }}">Книги</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: rgb(215,17,27)" href="#">Категории</a>
+        <a class="nav-link" style="color: rgb(215,17,27)" href="{{ url_for('genre.genre_index') }}">Категории</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: rgb(215,17,27)" href="#">Авторы</a>
+        <a class="nav-link" style="color: rgb(215,17,27)" href="{{ url_for('author.author_index') }}">Авторы</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color: rgb(215,17,27)" href="#">О нас</a>
+        <a class="nav-link" style="color: rgb(215,17,27)" href="{{ url_for('contact.contact_index') }}">О нас</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" style="color: rgb(215,17,27)" href="{{ url_for('user.login') }}">Войти</a>
