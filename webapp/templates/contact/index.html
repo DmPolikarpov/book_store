@@ -1,2 +1,101 @@
 {% extends 'base.html' %}
-{% block content %}Страница в разработке{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="pb-5 mx-5">
+            <div class="text-center">
+                <h1 class="display-4">О компании «alcoBS»</h1>
+                <p class="lead">Сервис алкогольных книг №1 в России</p>
+                <hr class="my">
+                <p>Компания alcoBS, основанная в 20012 году, сегодня является лидером на рынке лицензионных алкогольных книг в России</p>
+                <p>и странах СНГ. Лауреат «Премии Рунета-2014».</p>
+            </div>
+        </div>
+    </div>
+
+    <ul class="list-unstyled">
+        <div class="pb-5 mx-5">
+            <li>Ассортимент alcoBS насчитывает:</li>
+                <ul>
+                <li>300 000 книг на русском и иностранных языках</li>
+                <li>10 000 бесплатных книг</li>
+                <li>2 000 аудиокниг</li>
+                <li>500 новых книг каждый месяц</li>
+                </ul>
+            </li>
+            <li>Ежемесячная аудитория сервисов компании составляет 150 000 человек, которые скачивают более 320 000 книг в месяц.</li>
+        </div>
+    </ul>
+
+
+    <div class="card">
+        <div class="card-header">
+            О нас знают:
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote text-center">
+            <p>Лучший ассортимент книг на тему моих любимых напитков, обязятельно для всех, кто любит красиво выпить!</p>
+            <footer class="blockquote-footer">Леонид Парфенов в <cite title="Source Title">Парфеноне</cite></footer>
+            </blockquote>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote text-center">
+            <p>Когда открывал мою первую винонельню в Тоскане, именно здесь покупал книги и узнавал, как строить винный визнес!</p>
+            <footer class="blockquote-footer">Дмитрий Медведев в <cite title="Source Title">Комсомольской правде</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+    
+
+  
+
+    <div class="container">
+        <div class="text-center">
+            <div class="my-5">
+                <h1 class="display-4">Контакт</h1>
+                <p class="lead">Телефон +7(495)000-00-00</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="pb-5">
+            <div class="row">
+                <div class="col-3">
+                    <p class="font-weight-bold">Служба поддержки и помощи клиентам</p>
+                    <p class="font-weight-bold">Электронная почта</p>
+                    <p class="font-weight-bold">Адрес</p>
+                </div>
+                <div class="col-3">
+                    <p class="font-weight-normal"> +7(495)315-15-13</p>
+                    <div class="pb-4"></div>
+                    <a href="#" class="text-decoration-none">kontakt@alcobs.com</a>
+                    <p class="font-weight-normal">127006, Москва, ул. Тверская, д. 20, стр. 1, офис 114</p>   
+                </div>
+                <div class="col-6">
+                    <div class="card" style="width: 30rem;">
+                        <img src="{{ url_for('static', filename='media/map.png') }}" class="img-top" alt="Responsive image">
+                        <div class="card-body">
+                            <p class="card-text">Схема проезда</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+              
+
+    <div class="container">
+        <div class="text-center">
+            <div class="pb-3">
+                <h1 class="display-4">Реквизиты компании</h1>
+                <p class="lead">Наименование: ООО «AlcoBS»</p>
+                <p class="lead">ИНН: 4519256740</p>
+                <p class="lead">КПП: 450301001</p>
+            </div>
+        </div>
+    </div>
+   
+       
+{% endblock %}
