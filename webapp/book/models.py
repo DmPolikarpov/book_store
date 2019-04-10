@@ -1,4 +1,5 @@
 from webapp.db import db
+from webapp.author.models import Author
 
 
 class Book(db.Model):
