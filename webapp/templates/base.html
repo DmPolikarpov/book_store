@@ -24,15 +24,6 @@
                     </div>
                     <div class='col-6'>
                         <img src="{{ url_for('static', filename='media/tel.png') }}" class="img-fluid" alt="Responsive image">
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                            <div class="alert alert-warning" role="alert">
-                                {% for message in messages %}
-                                    {{ message }}<br>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                        {% endwith %}
                     </div>
                 </div>
                 <div class="row">
