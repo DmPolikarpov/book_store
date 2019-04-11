@@ -10,30 +10,42 @@
 <div class="container-fluid" style="margin-left: 80px">
     <div class="row" style="margin-bottom: 50px">
         <div class="col-6 col-md-4">
- 			<img src = "{{ url_for('static', filename='media/mainpage/1.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">
-            <h4>Книги</h4>
+            <a href="{{ url_for('book.book_index') }}">
+ 			    <img src = "{{ url_for('static', filename='media/mainpage/1.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">
+                <h4 style='color: rgb(0,0,0);'>Книги</h4>
+            </a>
         </div>
         <div class="col-6 col-md-4"> 
- 			<img src = "{{ url_for('static', filename='media/mainpage/2.png') }}" class="img-fluid" alt="Responsive image"  style="max-height: 150px; margin-bottom: 20px"> 
-            <h4>Категории</h4> 
+ 			<a href="{{ url_for('genre.genre_index') }}">
+                <img src = "{{ url_for('static', filename='media/mainpage/2.png') }}" class="img-fluid" alt="Responsive image"  style="max-height: 150px; margin-bottom: 20px"> 
+                <h4 style='color: rgb(0,0,0);'>Категории</h4>
+            </a>
         </div>
         <div class="col-6 col-md-4"> 
- 			<img src = "{{ url_for('static', filename='media/mainpage/3.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px"> 
-            <h4>Авторы</h4> 
+ 			<a href="{{ url_for('author.author_index') }}">
+                <img src = "{{ url_for('static', filename='media/mainpage/3.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px"> 
+                <h4 style='color: rgb(0,0,0);'>Авторы</h4>
+            </a>
         </div>
     </div>
     <div class="row" style="margin-bottom: 50px">
         <div class="col-6 col-md-4">
- 			<img src = "{{ url_for('static', filename='media/mainpage/4.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">
-            <h4>Личный кабинет</h4>
+ 			<a href="#">
+                <img src = "{{ url_for('static', filename='media/mainpage/4.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">
+                <h4 style='color: rgb(0,0,0);'>Личный кабинет</h4>
+            </a>
         </div>
         <div class="col-6 col-md-4"> 
- 			<img src = "{{ url_for('static', filename='media/mainpage/5.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px"> 
-            <h4>Корзина</h4> 
+ 			<a href="#">
+                <img src = "{{ url_for('static', filename='media/mainpage/5.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px"> 
+                <h4 style='color: rgb(0,0,0);'>Корзина</h4>
+            </a> 
         </div>
         <div class="col-6 col-md-4"> 
- 			<img src = "{{ url_for('static', filename='media/mainpage/6.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">  
-            <h4>О нас</h4>
+ 			<a href="{{ url_for('contact.contact_index') }}">
+                <img src = "{{ url_for('static', filename='media/mainpage/6.png') }}" class="img-fluid" alt="Responsive image" style="max-height: 150px; margin-bottom: 20px">  
+                <h4 style='color: rgb(0,0,0);'>О нас</h4>
+            </a>
         </div>
     </div> 
 </div>  
