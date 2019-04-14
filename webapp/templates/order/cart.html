@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Изображение</th>
+      <th scope="col">Название</th>
+      <th scope="col">Цена</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in order %}
+    <tr>
+      <th scope="row">1</th>
+      <td><img src="../static/{{ item['book_image'] }}" class="img-fluid" style="max-height: 50px;" alt="Responsive image"></td>
+      <td>{{ item['book_name'] }}</td>
+      <td>{{ item['price'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
