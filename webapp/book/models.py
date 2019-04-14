@@ -10,6 +10,8 @@ class Book(db.Model):
     genre = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False)
     image = db.Column(db.String, nullable=True) 
+    pages = db.Column(db.String, nullable=True)
+    printed_in = db.Column(db.String, nullable=True)
     price = db.Column(db.Numeric, nullable=False)    
     rating = db.Column(db.Integer, nullable=True)
     feedbacks = db.relationship('BookFeedback', lazy=True)

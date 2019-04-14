@@ -1,2 +1,27 @@
 {% extends 'base.html' %}
-{% block content %}Страница в разработке{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class='row'>
+{% for author in author_list %}
+        <div class='col-4'>
+            <img src = "../static/{{ author.image }}" class="img-thumbnail" alt="Responsive image">
+        </div>
+        <div class='col-6' style='margin-left: 40px; margin-right: 40px; margin-bottom: 40px'>
+	    	<h4>{{ author.last_name }}</h4> <h5>{{ author.first_name }}</h5>
+            <h6>Год рождения: {{ author.birth_date }}</h6>
+			<p>{{  author.description[:50] }} ...</p>
+			<form>
+			    <button type="submit" name="add_to_cart" class="btn btn-success">Перейти к описанию автора</button>
+			</form>
+	    </div>
+{% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

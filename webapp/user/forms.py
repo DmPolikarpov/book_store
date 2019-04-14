@@ -12,13 +12,13 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    first_name = StringField('Имя', validators=[DataRequired()], render_kw={"class": "form-control"})
-    last_name = StringField('Фамилия', validators=[DataRequired()], render_kw={"class": "form-control"})
-    birth_date = StringField('Дата рождения в формате 01-01-2001', validators=[DataRequired()], render_kw={"class": "form-control"})
-    email = StringField('Электронная почта', validators=[DataRequired(), Email()], render_kw={"class": "form-control"})
-    username = StringField('Логин', validators=[DataRequired()], render_kw={"class": "form-control"})
-    password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"class": "form-control"})
-    password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"class": "form-control"})
+    first_name = StringField('Имя', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите свое имя'})
+    last_name = StringField('Фамилия', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите свою фамилию'})
+    birth_date = StringField('Дата рождения', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Формат 01-01-2001'})
+    email = StringField('Электронная почта', validators=[DataRequired(), Email()], render_kw={"class": "form-control", "placeholder": 'Впишите адрес e-mail'})
+    username = StringField('Логин', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите свой логин'})
+    password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите пароль'})
+    password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"class": "form-control", "placeholder": 'Повторите пароль'})
     submit = SubmitField('Отправить!', render_kw={"class": "btn btn-primary"})
 
     def validate_username(self, username):

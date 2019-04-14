@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="col-4">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="row">
+            {% for message in messages %}
+            
+                <div class="col-12">
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
                 </div>
-            {% endfor %}
-            {% endif %}
-        {% endwith %}
+            
+        {% endfor %}
+    </div>
+        {% endif %}
+    {% endwith %}
+    <div class="col-4">
+
     </div>
     <div class="col-4">
-        
+       
         <form action="{{ url_for('user.process_reg') }}" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
@@ -48,6 +56,7 @@
         </form>
     </div> 
     <div class="col-4">
+
     </div>
     
 {% endblock %}

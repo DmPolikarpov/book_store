@@ -10,6 +10,7 @@ class Author(db.Model):
     birth_date = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=False) 
     rating = db.Column(db.Integer, nullable=True)
+    image = db.Column(db.String, nullable=True) 
     books = db.relationship('Book', backref='book_author', lazy=True)
     feedbacks = db.relationship('AuthorFeedback', backref='author', lazy=True)
     
