@@ -21,4 +21,3 @@ with open('books.csv', 'r', encoding='utf-8-sig') as f:
         
 
 db.session.commit()
-conn.close()

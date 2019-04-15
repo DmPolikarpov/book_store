@@ -5,7 +5,7 @@
 	<div class='row'>
 {% for author in author_list %}
         <div class='col-4'>
-            <img src = "../static/{{ author.image }}" class="img-thumbnail" alt="Responsive image">
+            <img src = "../static/{{ author.image }}" class="img-fluid" alt="Responsive image">
         </div>
         <div class='col-6' style='margin-left: 40px; margin-right: 40px; margin-bottom: 40px'>
 	    	<h4>{{ author.last_name }}</h4> <h5>{{ author.first_name }}</h5>
