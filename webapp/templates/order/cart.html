@@ -1,22 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 <table class="table">
-  <thead class="thead-dark">
+  <thead style="background-color: rgb(0,0,0); color: rgb(215,17,27)">
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">удалить</th>
       <th scope="col">Изображение</th>
       <th scope="col">Название</th>
+      <th scope="col">количество</th>
       <th scope="col">Цена</th>
     </tr>
   </thead>
   <tbody>
     {% for item in order %}
     <tr>
-      <th scope="row">1</th>
+      <td scope="row">
+        <form action="{{ url_for('order.del_position') }}" method="POST">
+            <input type="hidden" name="book_id" value="{{ item['book_id'] }}">
+            <button type="submit" name="del_position" class="btn btn-secondary btn-sm">X</button>
+        </form>
+      </td>
       <td><img src="../static/{{ item['book_image'] }}" class="img-fluid" style="max-height: 50px;" alt="Responsive image"></td>
       <td>{{ item['book_name'] }}</td>
-      <td>{{ item['price'] }}</td>
+      <td>
+        <form action="{{ url_for('order.number_down') }}" method="POST">
+            <input type="hidden" name="book_id" value="{{ item['book_id'] }}">
+            <button type="submit" name="number_down" class="btn btn-secondary btn-sm">-</button>
+        </form>
+        {{ item['qty'] }}
+        <form action="{{ url_for('order.number_up') }}" method="POST">
+            <input type="hidden" name="book_id" value="{{ item['book_id'] }}">
+            <button type="submit" name="number_down" class="btn btn-secondary btn-sm">+</button>
+        </form>
+      </td>
+      <td>{{ item['cost'] }}</td>
     </tr>
-    {% endfor %}
+    {% endfor %}   
+    <tr style="text-align: right">
+      <th colspan="5">Общая сумма заказа: {{ total }} руб.</th>
+    </tr>
+    <tr style="text-align: right">
+      <th colspan="5">В т.ч. НДС 20%:  {{ nds }} руб.</th>
+    </tr>
 </table>
 {% endblock %}

@@ -41,6 +41,7 @@ def create_app():
     @app.route('/session')
     def updating_session():
         res = str(session['order'])
+
         return res
 
     return app
