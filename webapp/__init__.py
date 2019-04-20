@@ -3,6 +3,7 @@ from flask_login import LoginManager, current_user, login_required
 from flask_migrate import Migrate
 
 from webapp.db import db
+from webapp.book.models import Book
 from webapp.user.models import User
 from webapp.admin.views import blueprint as admin_blueprint
 from webapp.author.views import blueprint as author_blueprint
@@ -40,9 +41,14 @@ def create_app():
 
     @app.route('/session')
     def updating_session():
-        res = str(session['order'])
+        for item in session['order']:
+            book_id = item['book_id']
+            qty = item['qty']
+        res = {'book_id':book_id, 'qty':qty}
+        book = Book.query.filter(Book.id == book_id).first()
+        a = book.image
 
-        return res
+        return str(res) 
 
     return app
 

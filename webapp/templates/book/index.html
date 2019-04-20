@@ -21,10 +21,6 @@
             <form action="{{ url_for('order.add_to_order') }}" method="POST">
                 <input type="hidden" name="add_to_order">
                 <input type="hidden" name="book_id" value="{{ book.id }}">
-                <input type="hidden" name="book_name" value="{{ book.name }}">
-                <input type="hidden" name="image" value="{{ book.image }}">
-                <input type="hidden" name="price" value="{{ book.price }}">
-
                 <button type="submit" name="add_to_order" class="btn btn-success">Добавить в корзину</button>
             </form>
 
