@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="col-4">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning" role="alert">
+        {% for message in messages %}
+            {{ message }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+<div class='container-fluid'>
+    <div class='row' style="text-align: center;">
+        <div class='col' style="margin-bottom: 30px">
+            <h2>Форма заказа</h2>
+        </div>
+    </div>
+    <div class='row' style="max-width: 100%">
+        <div class="col-4">
+            <h4>Ваш заказ</h4>
+        </div>
+        <div class="col-4">
+            <h4>Проверьте, пожалуйста, данные</h4>
+        </div>
+        <div class="col-4">
+            <h4>Заполните, пожалуйста, форму</h4>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-4">
+                <table class="table table-bordered">
+                  <tbody>
+                    {% for item in order %}
+                    <tr>
+                      <td>{{ item['book_name'] }}</td>
+                      <td>{{ item['qty'] }}</td>
+                      <td>{{ item['cost'] }}</td>
+                    </tr>
+                    {% endfor%}
+                    <tr>
+                      <th colspan="2">Общая сумма заказа:</th>
+                      <th>{{ total }}</th>
+                    </tr>
+                  </tbody>
+                </table>
+        </div>
+        <div class="col-4">
+            {% for data in user %}
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Фамилия</td>
+                      <td>{{ data.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Имя</td>
+                      <td>{{ data.first_name}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>e-mail</td>
+                      <td>{{ data.email}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            {% endfor%}
+        </div>
+        <div class="col-4">
+            <form action="{{ url_for('order.process_order') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.phone.label }}
+                    {{ form.phone() }}
+                </div>
+                <div class="form-group">
+                    {{ form.region.label }}
+                    {{ form.region() }}
+                </div>
+                <div class="form-group">
+                    {{ form.city.label }}
+                    {{ form.city() }}
+                </div>
+                <div class="form-group">
+                    {{ form.street.label }}
+                    {{ form.street() }}
+                </div>
+                <div class="form-group">
+                    {{ form.house.label }}
+                    {{ form.house() }}
+                </div>
+                {{ form.submit }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

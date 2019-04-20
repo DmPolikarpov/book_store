@@ -57,4 +57,13 @@ def process_reg():
                     error
                 ))
         return redirect(url_for('user.register'))
+
+@blueprint.route('/profil')
+def profil():
+    title = "личный кабинет"
+    return render_template('user/profil.html', page_title=title)
+
+
+
+
     
