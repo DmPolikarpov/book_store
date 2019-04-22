@@ -3,6 +3,7 @@
 
 <div class="container-fluid">
     <div class='row'>
+        {% include('messages.html') %}
         <div class='col-4'>
             <div class="img" style="width: 18rem; height: 18rem;">
                 <img src = "../static/{{ book.image }}" class="img-fluid" alt="Responsive image">                
@@ -10,7 +11,7 @@
         </div>
         <div class='col-7' style='margin-left: 40px; margin-right: 40px; margin-bottom: 40px'>
             <h1>{{ book.name }}</h1>
-            <h4> Автор: </h4>
+            <h4> Автор: {{ author.last_name }} {{ author.first_name }} <a href="{{ url_for('author.author_info', author_id=author.id)}}"><button type="hidden" name="author_id" value="{{ author.id }}" class="btn btn-success">Перейти к описанию автора</button></a></h4>
             <h4>Жанр: {{ book.genre }}</h4>
             <h4>Цена: {{ book.price }} рублей </h4>
             <h4>Количетсво страниц: {{ book.pages }}</h4>

@@ -27,13 +27,5 @@ class BookFeedback(db.Model):
     def __repr__(self):
         return f'BookFeedback {self.feedback}'
 
-class AuthorFeedback(db.Model):
-    """ Модель отзыва на автора. """
-    id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey('author.id'), nullable=True)
-    feedback = db.Column(db.Text, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f'AuthorFeedback {self.feedback}'
 
