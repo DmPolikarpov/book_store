@@ -11,5 +11,28 @@
     {% endif %}
     {% endwith %}
 </div>
+<div class='container-fluid'>
+    <div class='row'>
+        <div class="col">
+            <h3>Личный кабинет</h3>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="list-group" id="myList" role="tablist">
+          <a class="list-group-item list-group-item-action active btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#profile" role="tab">Мой профиль</a>
+          <a class="list-group-item list-group-item-action btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#orders" role="tab">Мои заказы</a>
+          <a class="list-group-item list-group-item-action btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#settings" role="tab">Настройки</a>
+        </div>
+        <div style="margin-top: 30px">
+            <a class="btn btn-outline-danger" href="#" role="button">Назад к книгам</a>
+        </div>
+      </div>
+      <div class="col-9">
+        {% include("user/profile_content.html") %}
+      </div>
+    </div>
+</div>
+
 
 {% endblock %}

@@ -39,17 +39,6 @@ def create_app():
         title = "alcoBS"
         return render_template("index.html", page_title=title)
 
-    @app.route('/session')
-    def updating_session():
-        for item in session['order']:
-            book_id = item['book_id']
-            qty = item['qty']
-        res = {'book_id':book_id, 'qty':qty}
-        book = Book.query.filter(Book.id == book_id).first()
-        a = book.image
 
-        return str(res) 
-
-    return app
 
 

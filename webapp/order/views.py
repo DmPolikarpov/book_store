@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request, session, abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 from datetime import datetime
 
 from webapp.db import db, Order
@@ -13,10 +13,8 @@ from webapp.user.models import User
 blueprint = Blueprint('order', __name__, url_prefix='/order')
 
 @blueprint.route("/add_to_order", methods=['POST'])
+@login_required
 def add_to_order():
-    if not current_user.is_authenticated:
-        flash('Для заказа книг необходимо залогиниться')
-        return redirect(url_for('book.book_index'))
     try:
         book_id = int(request.form['book_id'])
     except ValueError:
@@ -41,10 +39,8 @@ def add_to_order():
    
 
 @blueprint.route("/cart")
+@login_required
 def cart():
-    if not current_user.is_authenticated:
-        flash('Для просмотра корзины необходимо залогиниться')
-        return redirect(url_for('book.book_index'))
     title = 'Корзина'
     total = 0
     if not session.get('order'):
@@ -58,6 +54,7 @@ def cart():
     return render_template('order/cart.html', page_title=title, order=order, nds=nds, total=total)
 
 @blueprint.route("/del_position", methods=['POST'])
+@login_required
 def del_position():
     try:
         book_id = int(request.form['book_id'])
@@ -70,6 +67,7 @@ def del_position():
     return redirect(url_for('order.cart'))
 
 @blueprint.route("/number_down", methods=['POST'])
+@login_required
 def number_down():
     try:
         book_id = int(request.form['book_id'])
@@ -85,6 +83,7 @@ def number_down():
     return redirect(url_for('order.cart'))
 
 @blueprint.route("/number_up", methods=['POST'])
+@login_required
 def number_up():
     try:
         book_id = int(request.form['book_id'])
@@ -100,6 +99,7 @@ def number_up():
     return redirect(url_for('order.cart'))
 
 @blueprint.route("/form_order")
+@login_required
 def form_order():
     title = "заказ"
     total = 0
@@ -111,6 +111,7 @@ def form_order():
     return render_template('order/form_order.html', user=user, order=order, total=total, page_title=title, form=order_form)
 
 @blueprint.route("/process_order", methods=['POST'])
+@login_required
 def process_order():
     form = OrderForm()
     if form.validate_on_submit():
