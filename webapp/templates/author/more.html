@@ -3,22 +3,61 @@
 
 <div class="container-fluid">
     <div class='row'>
-        <div class='col-4 author-content'>
+        <div class='col-4'>
+        {% include('messages.html') %}
             <div class="pb-5">
                 <div class="img" style="width: 18rem; height: 18rem;">
                     <img src = "../static/{{ author.image }}" class="img-fluid" alt="Responsive image">                
                 </div>
             </div>
         </div>
+
         <div class='col-7' style='margin-left: 40px; margin-right: 40px; margin-bottom: 40px'>
             <h2>{{ author.last_name }} {{ author.first_name }}</h2>
+            <h4>Книги автора:</h4>
+            <ul class="list-unstyled">
+                <div class="mx-2">     
+                    <ul>
+                    <h4>
+                    <li>{{ author.books[0] }}</li>
+                    </h4>
+                    </ul>
+                </div>
+            </ul>
             <h4>Год рождения: {{ author.birth_date }}</h4>
             <h4>Описание: {{ author.description }}</h4>
-            <h4>Книги автора: {{ author.books[-1] }}</h4>
+
+            {% if author.feedbacks %}
+                <h4>Комментарии:</h4>
+                {% for feedback in author.feedbacks %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{ feedback.feedback }}</p>
+                        <p class="card-text">
+                                <small>Опубликовано: {{ feedback.created.strftime('%d.%m.%Y') }} |
+                                        Автор: {{ feedback.user_id }}</small>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <form action="{{ url_for('author.add_feedback') }}" method="POST">
+                    {{ feedback_form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ feedback_form.feedback_text.label }}
+                        {{ feedback_form.feedback_text() }}
+                    </div>
+                        {{ feedback_form.submit() }}
+                </form>
+            {% else %}
+                <p>
+                    <a href="{{ url_for('user.login', next=request.full_path) }}">Авторизуйтесь</a>, чтобы комментировать
+                </p>
+            {% endif %}
+
         </div>
     </div>
 </div>
-
-
 
 {% endblock %}
