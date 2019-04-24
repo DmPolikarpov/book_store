@@ -25,11 +25,15 @@
           <a class="list-group-item list-group-item-action btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#settings" role="tab">Настройки</a>
         </div>
         <div style="margin-top: 30px">
-            <a class="btn btn-outline-danger" href="#" role="button">Назад к книгам</a>
+            <a class="btn btn-outline-danger" href="/" role="button">На главную</a>
         </div>
       </div>
       <div class="col-9">
-        {% include("user/profile_content.html") %}
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane active" id="profile" role="tabpanel">{% include("user/profile_content.html") %}</div>
+          <div class="tab-pane" id="orders" role="tabpanel">{% include("user/order_content.html") %}</div>
+          <div class="tab-pane" id="settings" role="tabpanel">{% include("user/settings_content.html") %}</div>
+        </div>
       </div>
     </div>
 </div>

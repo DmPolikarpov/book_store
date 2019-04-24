@@ -39,6 +39,8 @@ def create_app():
         title = "alcoBS"
         return render_template("index.html", page_title=title)
 
+    return app
+
 
 
 

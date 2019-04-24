@@ -1,9 +1,10 @@
 from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user
-import os
+import os, json
 
-from webapp.db import db
+from webapp.db import db, Order
 from webapp.user.models import User
+from webapp.book.models import Book
 from webapp.user.forms import LoginForm, RegistrationForm
 from werkzeug.utils import secure_filename
 
@@ -63,13 +64,19 @@ def process_reg():
 @blueprint.route('/profile')
 def profile():
     title = "личный кабинет"
+    order_detail = []
     user = User.query.filter(User.id == current_user.id).first()
-    first_name = user.first_name
-    last_name = user.last_name
-    birth_date = user.birth_date
-    email = user.email
-    username = user.username
-    return render_template('user/profile.html', page_title=title, first_name=first_name, last_name=last_name, birth_date=birth_date, email=email, username=username)
+    order_list = Order.query.filter(Order.user_id == current_user.id).all()
+    for order in order_list:
+            detail = json.loads(order.detail)
+            book_name = Book.query.filter(Book.id == detail['book_id']).first()
+            book_qty = detail['qty']
+            info = f'Книга {book_name} в количестве {book_qty} шт.'
+            order_detail.append(info)
+
+
+
+    return render_template('user/profile.html', page_title=title, user=user, order_list=order_list, order_detail=order_detail)
 
 @blueprint.route('/uploads', methods=['POST'])
 def uploads():

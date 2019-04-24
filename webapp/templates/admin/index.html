@@ -1,2 +1,40 @@
 {% extends 'base.html' %}
-{% block content %}контент админки{% endblock %}
+{% block content %}
+<div class="col-4">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-warning" role="alert">
+        {% for message in messages %}
+            {{ message }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+<div class='container-fluid'>
+    <div class='row'>
+        <div class="col">
+            <h3>Панель администратора</h3>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="list-group" id="myList" role="tablist">
+          <a class="list-group-item list-group-item-action active btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#books" role="tab">Книги</a>
+          <a class="list-group-item list-group-item-action btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#orders" role="tab">Заказы</a>
+          <a class="list-group-item list-group-item-action btn-outline-danger" style="color: rgb(0,0,0);" data-toggle="list" href="#users" role="tab">Пользователи</a>
+        </div>
+        <div style="margin-top: 30px">
+            <a class="btn btn-outline-danger" href="/" role="button">На главную</a>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane active" id="books" role="tabpanel">{% include("admin/books_tab.html") %}</div>
+          <div class="tab-pane" id="orders" role="tabpanel">{% include("admin/orders_tab.html") %}</div>
+          <div class="tab-pane" id="users" role="tabpanel">{% include("admin/users_tab.html") %}</div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

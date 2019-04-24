@@ -1,0 +1,20 @@
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Дата заказа</th>
+          <th scope="col">Содержание</th>
+          <th scope="col">Доставка</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in order_list %}
+        {% for item in order_detail %}
+        <tr>
+          <td>{{ order['order_date'] }}</td>
+          <td>{{ item }}</td>
+          <td>{{ order['detail'] }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
