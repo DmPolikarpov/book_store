@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="col-4">
+    {% include('messages.html') %}
+</div>
 <div class="container-fluid">
     <div class='row'>
         <div class='col-4'>
-        {% include('messages.html') %}
             <div class="pb-5">
                 <div class="img" style="width: 18rem; height: 18rem;">
                     <img src = "../static/{{ author.image }}" class="img-fluid" alt="Responsive image">                
@@ -19,7 +21,7 @@
                 <div class="mx-2">     
                     <ul>
                     <h4>
-                    <li>{{ author.books[0] }}</li>
+                    <li> <a href="{{ url_for('book.book_index') }}"> {{ author.books[0] }} </a></li>             
                     </h4>
                     </ul>
                 </div>
@@ -35,7 +37,7 @@
                         <p class="card-text">{{ feedback.feedback }}</p>
                         <p class="card-text">
                                 <small>Опубликовано: {{ feedback.created.strftime('%d.%m.%Y') }} |
-                                        Автор: {{ feedback.user_id }}</small>
+                                        Автор: {{ feedback.feedback_author.username }}</small>
                         </p>
                     </div>
                 </div>
@@ -57,6 +59,7 @@
             {% endif %}
 
         </div>
+
     </div>
 </div>
 

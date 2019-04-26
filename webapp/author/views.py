@@ -28,11 +28,10 @@ def author_info(author_id):
 def add_feedback():
 	form = AuthorFeedbackForm()
 	if form.validate_on_submit():
-		if Author.query.filter(Author.id == form.author_id.data).first():
-			feedback = AuthorFeedback(feedback=form.feedback_text.data, author_id=form.author_id.data, user_id=current_user.id)
-			db.session.add(feedback)
-			db.session.commit()
-			flash('Комментарий успешно добавлен')
+		feedback = AuthorFeedback(feedback=form.feedback_text.data, author_id=form.author_id.data, user_id=current_user.id)
+		db.session.add(feedback)
+		db.session.commit()
+		flash('Комментарий успешно добавлен')
 	else:
 		for field, errors in form.errors.items():
 			for error in errors:
@@ -40,4 +39,6 @@ def add_feedback():
 					getattr(form, field).label.text,
 					error
 				))
-	return redirect(get_redirect_target)
+	return redirect(get_redirect_target())
+
+	 

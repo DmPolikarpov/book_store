@@ -17,15 +17,7 @@ class Order(db.Model):
     def __repr__(self):
         return f'Order {self.id} {self.order_date}'
 
-class BookFeedback(db.Model):
-    """ Модель отзыва на книгу. """
-    id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    feedback = db.Column(db.Text, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f'BookFeedback {self.feedback}'
 
 
 
