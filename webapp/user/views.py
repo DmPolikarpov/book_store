@@ -1,11 +1,11 @@
-from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for
-from flask_login import login_user, logout_user, current_user
+from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, request, url_for
+from flask_login import login_user, logout_user, current_user, login_required
 import os, json
 
 from webapp.db import db, Order
 from webapp.user.models import User
 from webapp.book.models import Book
-from webapp.user.forms import LoginForm, RegistrationForm
+from webapp.user.forms import LoginForm, RegistrationForm, EditForm, EditPasswordForm
 from werkzeug.utils import secure_filename
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
@@ -62,28 +62,71 @@ def process_reg():
         return redirect(url_for('user.register'))
 
 @blueprint.route('/profile')
+@login_required
 def profile():
     title = "личный кабинет"
-    order_detail = []
+    full_order = []
+    form = EditForm()
+    pass_form = EditPasswordForm()
+    form.first_name.data = current_user.first_name
+    form.last_name.data = current_user.last_name
+    form.birth_date.data = current_user.birth_date
     user = User.query.filter(User.id == current_user.id).first()
     order_list = Order.query.filter(Order.user_id == current_user.id).all()
     for order in order_list:
-            detail = json.loads(order.detail)
-            book_name = Book.query.filter(Book.id == detail['book_id']).first()
-            book_qty = detail['qty']
+        order_detail = []
+        date = order.order_date
+        detail = json.loads(order.detail)
+        for item in detail:
+            book_name = Book.query.filter(Book.id == item['book_id']).first()
+            book_qty = item['qty']
             info = f'Книга {book_name} в количестве {book_qty} шт.'
             order_detail.append(info)
+        deliver = json.loads(order.deliver)
+        full_order.append({'date':date, 'detail':order_detail, 'deliver':deliver})
+    return render_template('user/profile.html', page_title=title, form=form, pass_form=pass_form, user=user, full_order=full_order)
 
+@blueprint.route('/process_edit_data', methods=['POST'])
+@login_required
+def process_edit_data():
+    form = EditForm()
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.birth_date = form.birth_date.data
+        db.session.commit()
+        flash('Изменения успешно сохранены!')
+        return redirect(url_for('user.profile'))
 
+@blueprint.route('/process_edit_password', methods=['POST'])
+@login_required
+def process_edit_password():
+    form = EditPasswordForm()
+    if form.validate_on_submit():
+        current_user.set_password(form.password.data)
+        db.session.commit()
+        flash('Пароль успешно изменен!')
+        return redirect(url_for('user.profile'))
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash('Ошибка в поле "{}": - {}'.format(
+                    getattr(form, field).label.text,
+                    error
+                ))
+        return redirect(url_for('user.profile'))
 
-    return render_template('user/profile.html', page_title=title, user=user, order_list=order_list, order_detail=order_detail)
 
 @blueprint.route('/uploads', methods=['POST'])
 def uploads():
+    folder = os.path.abspath(os.path.dirname(__file__)) + '/../static/icons'
     file = request.files["file"]
-    file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), secure_filename(file.filename)))
-    return redirect(url_for('user.profile'))
-
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(folder, filename))
+    user = User.query.filter(User.id == current_user.id).first()
+    user.image = filename
+    db.session.commit()
+    return redirect(url_for('user.profile', image=user.image))
 
 
     

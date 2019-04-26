@@ -1,3 +1,4 @@
+  <h4>Мои заказы</h4>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -7,14 +8,22 @@
         </tr>
       </thead>
       <tbody>
-        {% for order in order_list %}
-        {% for item in order_detail %}
+        {% for item in full_order %}
         <tr>
-          <td>{{ order['order_date'] }}</td>
-          <td>{{ item }}</td>
-          <td>{{ order['detail'] }}</td>
+          <td>{{ item['date'] }}</td>
+          <td>
+          {% for book in item['detail'] %}
+            - {{ book }}<br>
+          {% endfor %}
+          </td>
+          <td>
+            <b>телефон:</b> {{ item['deliver']['phone'] }}<br>
+            <b>регион:</b> {{ item['deliver']['region'] }}<br>
+            <b>город:</b> {{ item['deliver']['city'] }}<br>
+            <b>улица:</b> {{ item['deliver']['street'] }}<br>
+            <b>дом:</b> {{ item['deliver']['house'] }}<br>
+          </td>
         </tr>
-        {% endfor %}
         {% endfor %}
       </tbody>
     </table>

@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, unique=True, nullable=True) 
     username = db.Column(db.String, unique=True, nullable=False)    
     password = db.Column(db.String, nullable=False)
+    image = db.Column(db.String, nullable=True)
     role = db.Column(db.String(10), index=True, nullable=True)
     books = db.relationship('Order', backref='order_book')
     book_feedbacks = db.relationship('BookFeedback', backref='feedback_author', lazy=True)

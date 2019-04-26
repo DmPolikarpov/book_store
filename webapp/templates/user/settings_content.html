@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-4">
+      <div class="row">
+        <h4>Изменение фотографии</h4>
+        <img src = "../static/icons/{{ user.image }}" class="img-fluid" alt="Responsive image">
+        <form action="{{ url_for('user.uploads') }}" method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Загрузить>
+        </form>
+      </div>
+      <div class="row" style="margin-top: 30px">
+        <form action="{{ url_for('user.process_edit_password') }}" method="POST">
+            {{ pass_form.hidden_tag() }}
+            <div class="form-group">
+                {{ pass_form.old_password.label }}
+                {{ pass_form.old_password() }}
+            </div>
+            <div class="form-group">
+                {{ pass_form.password.label }}
+                {{ pass_form.password() }}
+            </div>
+            <div class="form-group">
+                {{ pass_form.password2.label }}
+                {{ pass_form.password2() }}
+            </div>
+            {{ form.submit }}
+        </form>
+      </div>
+    </div>
+    <div class="col-8">
+        <h4>Редактирование профиля</h4>
+        <h5>Заполните только те поля, которые хотите изменить</h5>
+        <form action="{{ url_for('user.process_edit_data') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.first_name.label }}
+                {{ form.first_name() }}
+            </div>
+            <div class="form-group">
+                {{ form.last_name.label }}
+                {{ form.last_name() }}
+            </div>
+            <div class="form-group">
+                {{ form.birth_date.label }}
+                {{ form.birth_date() }}
+            </div>
+            {{ form.submit }}
+        </form>
+    </div>
+</div>
+<div class="row"></div>

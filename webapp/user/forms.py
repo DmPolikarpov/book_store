@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_login import current_user
 from wtforms import BooleanField, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
@@ -38,3 +39,27 @@ class OrderForm(FlaskForm):
     street = StringField('Улица', validators=[DataRequired()], render_kw={"class":"form-control", "placeholder": 'Впишите свою улицу'})    
     house = StringField('Дом', validators=[DataRequired()], render_kw={"class":"form-control", "placeholder": 'Впишите номер дома'})
     submit = SubmitField('Отправить', render_kw={"class": "btn btn-primary"})
+
+class EditForm(FlaskForm):
+    first_name = StringField('Имя', validators=[DataRequired()], render_kw={"class": "form-control"})
+    last_name = StringField('Фамилия', validators=[DataRequired()], render_kw={"class": "form-control"})
+    birth_date = StringField('Дата рождения', validators=[DataRequired()], render_kw={"class": "form-control"})
+    submit = SubmitField('Отправить!', render_kw={"class": "btn btn-primary"})
+
+class EditPasswordForm(FlaskForm):
+    old_password = PasswordField('Старый пароль', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите старый пароль'})
+    password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите новый пароль'})
+    password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"class": "form-control", "placeholder": 'Повторите новый пароль'})
+    submit = SubmitField('Отправить!', render_kw={"class": "btn btn-primary"})
+
+    def validate_old_password(self, old_password):
+        user = User.query.filter(User.id == current_user.id).first()
+        if not user.check_password(old_password.data):
+            raise ValidationError('Неправильный пароль')
+
+
+
+
+
+
+

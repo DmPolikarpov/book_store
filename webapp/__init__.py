@@ -13,6 +13,8 @@ from webapp.genre.views import blueprint as genre_blueprint
 from webapp.order.views import blueprint as order_blueprint
 from webapp.user.views import blueprint as user_blueprint
 
+from webapp.user.forms import EditPasswordForm
+
 def create_app():
     app = Flask(__name__) 
     app.config.from_pyfile('config.py')
@@ -38,6 +40,7 @@ def create_app():
     def index():
         title = "alcoBS"
         return render_template("index.html", page_title=title)
+
 
     return app
 
