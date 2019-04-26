@@ -3,6 +3,7 @@ from flask_login import LoginManager, current_user, login_required
 from flask_migrate import Migrate
 
 from webapp.db import db
+from webapp.book.models import Book
 from webapp.user.models import User
 from webapp.admin.views import blueprint as admin_blueprint
 from webapp.author.views import blueprint as author_blueprint
@@ -38,12 +39,8 @@ def create_app():
         title = "alcoBS"
         return render_template("index.html", page_title=title)
 
-    @app.route('/session')
-    def updating_session():
-        res = str(session['order'])
-
-        return res
-
     return app
+
+
 
 

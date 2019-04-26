@@ -1,10 +1,16 @@
-from flask import Blueprint, Flask, render_template, flash, redirect, url_for
+from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user
+import os, json
 
-from webapp.db import db
+from webapp.db import db, Order
 from webapp.user.models import User
+from webapp.book.models import Book
 from webapp.user.forms import LoginForm, RegistrationForm
+<<<<<<< HEAD
 from webapp.utils import get_redirect_target
+=======
+from werkzeug.utils import secure_filename
+>>>>>>> origin/master
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
@@ -59,11 +65,28 @@ def process_reg():
                 ))
         return redirect(url_for('user.register'))
 
-@blueprint.route('/profil')
-def profil():
+@blueprint.route('/profile')
+def profile():
     title = "личный кабинет"
-    return render_template('user/profil.html', page_title=title)
+    order_detail = []
+    user = User.query.filter(User.id == current_user.id).first()
+    order_list = Order.query.filter(Order.user_id == current_user.id).all()
+    for order in order_list:
+            detail = json.loads(order.detail)
+            book_name = Book.query.filter(Book.id == detail['book_id']).first()
+            book_qty = detail['qty']
+            info = f'Книга {book_name} в количестве {book_qty} шт.'
+            order_detail.append(info)
 
+
+
+    return render_template('user/profile.html', page_title=title, user=user, order_list=order_list, order_detail=order_detail)
+
+@blueprint.route('/uploads', methods=['POST'])
+def uploads():
+    file = request.files["file"]
+    file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), secure_filename(file.filename)))
+    return redirect(url_for('user.profile'))
 
 
 

@@ -1,0 +1,46 @@
+
+<div class="row">
+    <div class="col-4">
+        <h4>Фотография</h4>
+
+        <title>Upload new File</title>
+        <h1>Upload new File</h1>
+        <form action="{{ url_for('user.uploads') }}" method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+        </form>
+    </div>
+    <div class="col-8">
+        <h4>Личные данные</h4>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Имя:</td>
+              <th>{{ user.first_name }}</th>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Фамилия:</td>
+              <th>{{ user.last_name }}</th>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Дата рождения:</td>
+              <th>{{ user.birth_date }}</th>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Эл.почта</td>
+              <th>{{ user.email }}</th>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Логин:</td>
+              <th>{{ user.username }}</th>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
+<div class="row"></div>
