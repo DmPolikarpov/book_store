@@ -113,12 +113,13 @@ def form_order():
 @blueprint.route("/process_order", methods=['POST'])
 @login_required
 def process_order():
+    order_detail = []
     form = OrderForm()
     if form.validate_on_submit():
         for item in session['order']:
             book_id = item['book_id']
             qty = item['qty']
-        order_detail = {'book_id':book_id, 'qty':qty}
+            order_detail.append({'book_id':book_id, 'qty':qty})
         phone = form.phone.data
         region = form.region.data
         city = form.city.data
