@@ -1,11 +1,11 @@
 from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for, request
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 import os, json
 
 from webapp.db import db, Order
 from webapp.user.models import User
 from webapp.book.models import Book
-from webapp.user.forms import LoginForm, RegistrationForm
+from webapp.user.forms import LoginForm, RegistrationForm, EditForm, EditPasswordForm
 from webapp.utils import get_redirect_target
 from werkzeug.utils import secure_filename
 
@@ -25,7 +25,7 @@ def process_login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             flash('Вы вошли на сайт')
-            return redirect(get_redirect_target())
+            return redirect(url_for('index'))
     flash('Неправильное имя пользователя или пароль')
     return redirect(get_redirect_target())
 
@@ -119,6 +119,7 @@ def process_edit_password():
 
 
 @blueprint.route('/uploads', methods=['POST'])
+@login_required
 def uploads():
     folder = os.path.abspath(os.path.dirname(__file__)) + '/../static/icons'
     try:

@@ -4,28 +4,22 @@
     {% include('messages.html') %}
 </div>
 <div class="container-fluid">
-     <div class='row'>
-  
-            <div class='col-4'>
-                <div class="img" style="width: 18rem; height: 18rem;">
-                    <img src = "../static/{{ genre.image }}" class="img-fluid" alt="Responsive image">                
-                </div>
+    {% for book in books %}
+    <div class='row'>
+        <div class='col-4'>
+            <div class="img" style="max-width: 200px; height: auto; margin-bottom: 30px">
+                <img src = "../../static/{{ book.image }}" class="img-fluid" alt="Responsive image">
             </div>
-            <div class='col-7' style='margin-left: 40px; margin-right: 40px; margin-bottom: 40px'>
-                <h1>{{ genre.name }}</h1>
-                <h4> Автор: {{ author.last_name }} {{ author.first_name }} <a href="{{ url_for('author.author_info', author_id=author.id)}}"><button type="hidden" name="author_id" value="{{ author.id }}" class="btn btn-success">Перейти к описанию автора</button></a></h4>
-                <h4>Цена: {{ genre.price }} рублей </h4>
-                <h4>Количетсво страниц: {{ genre.pages }}</h4>
-                <h4>Год печати: {{ genre.printed_in }}</h4>
-                <h4></h4>
-                
-        {% endfor %}
-
-
-
-
+        </div>
+        <div class='col-8'>
+            <h1>{{ book.name }}</h1>
+            <h4> Автор: {{ book.book_author.last_name }} {{ book.book_author.first_name }} <a href="{{ url_for('author.author_info', author_id=book.book_author.id)}}"><button type="hidden" name="author_id" value="{{ book.book_author.id }}" class="btn btn-outline-danger">Перейти к описанию автора</button></a></h4>
+            <h4>Цена: {{ book.price }} рублей </h4>
+            <h4>Количетсво страниц: {{ book.pages }}</h4>
+            <h4>Год печати: {{ book.printed_in }}</h4>
         </div>
     </div>
+    {% endfor %}
 </div>
 {% endblock %}
 
