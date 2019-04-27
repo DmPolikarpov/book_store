@@ -120,7 +120,10 @@ def process_edit_password():
 @blueprint.route('/uploads', methods=['POST'])
 def uploads():
     folder = os.path.abspath(os.path.dirname(__file__)) + '/../static/icons'
-    file = request.files["file"]
+    try:
+        file = request.files["file"]
+    except ValueError:
+        abort(400)
     filename = secure_filename(file.filename)
     file.save(os.path.join(folder, filename))
     user = User.query.filter(User.id == current_user.id).first()
