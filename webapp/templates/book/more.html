@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<div class="col-4">
+    {% include('messages.html') %}
+</div>
 <div class="container-fluid">
-    <div class='row'>
-        {% include('messages.html') %}
+     <div class='row'>
         <div class='col-4'>
             <div class="img" style="width: 18rem; height: 18rem;">
                 <img src = "../static/{{ book.image }}" class="img-fluid" alt="Responsive image">                
@@ -17,7 +18,34 @@
             <h4>Количетсво страниц: {{ book.pages }}</h4>
             <h4>Год печати: {{ book.printed_in }}</h4>
             <h4>Описание: {{ book.description }}</h4>
-
+            {% if book.feedbacks %}
+                <h4>Комментарии:</h4>
+                {% for feedback in book.feedbacks %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{ feedback.feedback }}</p>
+                        <p class="card-text">
+                                <small>Опубликовано: {{ feedback.created.strftime('%d.%m.%Y') }} |
+                                        Автор: {{ feedback.feedback_author.username }}</small>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <form action="{{ url_for('book.add_feedback') }}" method="POST">
+                    {{ feedback_form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ feedback_form.feedback_text.label }}
+                        {{ feedback_form.feedback_text() }}
+                    </div>
+                        {{ feedback_form.submit() }}
+                </form>
+            {% else %}
+            <p>
+                <a href="{{ url_for('user.login') }}">Авторизуйтесь</a>, чтобы комментировать
+            </p>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -1,5 +1,7 @@
 from webapp.db import db
 from webapp.author.models import Author
+from datetime import datetime
+from sqlalchemy.orm import relationship
 
 
 class Book(db.Model):
@@ -17,6 +19,21 @@ class Book(db.Model):
     feedbacks = db.relationship('BookFeedback', lazy=True)
 
     users = db.relationship('Order', backref='order')
+
+    def feedbacks_count(self):
+        return BookFeedback.query.filter(BookFeedback.book_id == self.id).count()
     
     def __repr__(self):
         return f'Book {self.name}'
+
+
+class BookFeedback(db.Model):
+    """ Модель отзыва на книгу. """
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    feedback = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+    def __repr__(self):
+        return f'BookFeedback {self.feedback}'
