@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for
+from flask import Blueprint, Flask, render_template, send_from_directory, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user
 import os, json
 
@@ -6,11 +6,8 @@ from webapp.db import db, Order
 from webapp.user.models import User
 from webapp.book.models import Book
 from webapp.user.forms import LoginForm, RegistrationForm
-<<<<<<< HEAD
 from webapp.utils import get_redirect_target
-=======
 from werkzeug.utils import secure_filename
->>>>>>> origin/master
 
 blueprint = Blueprint('user', __name__, url_prefix='/users')
 
