@@ -1,12 +1,14 @@
 <div class="row">
     <div class="col-4">
       <div class="row">
-        <h4>Изменение фотографии</h4>
-        <img src = "../static/icons/{{ user.image }}" class="img-fluid" alt="Responsive image">
-        <form action="{{ url_for('user.uploads') }}" method=post enctype=multipart/form-data>
-            <input type=file name=file>
-            <input type=submit value=Загрузить>
-        </form>
+        <div class="col">
+          <h4>Изменение фотографии</h4>
+          <img src = "../static/icons/{{ user.image }}" style="width: 100%; height: auto" class="img-fluid" alt="Responsive image">
+          <form action="{{ url_for('user.uploads') }}" method=post enctype=multipart/form-data>
+              <input type=file name=file>
+              <input class="btn btn-outline-danger" type=submit value=Загрузить>
+          </form>
+        </div>
       </div>
       <div class="row" style="margin-top: 30px">
         <form action="{{ url_for('user.process_edit_password') }}" method="POST">

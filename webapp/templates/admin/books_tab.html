@@ -1,4 +1,58 @@
 <div class="row">
-    <div class="col">управление книгами</div>
+    <div class="col-6">
+        <h4>Добавление нового автора</h4>
+        <form action="{{ url_for('admin.add_author') }}" method="POST"  enctype=multipart/form-data>
+            {{ author_form.hidden_tag() }}
+            <div class="form-group">
+                {{ author_form.first_name.label }}
+                {{ author_form.first_name() }}
+            </div>
+            <div class="form-group">
+                {{ author_form.last_name.label }}
+                {{ author_form.last_name() }}
+            </div>
+            <div class="form-group">
+                {{ author_form.birth_date.label }}
+                {{ author_form.birth_date() }}
+            </div>
+            <div class="form-group">
+                {{ author_form.description.label }}
+                {{ author_form.description() }}
+            </div>
+            <div class="form-group">
+                <label for="addAuthor">Добавьте фотографию автора</label>
+                <input type="file" name="file" class="form-control-file" id="addAuthor">
+            </div>
+                {{ author_form.submit }}
+
+        </form>
+    </div>
+    <div class="col-6">
+        <h4>Добавление новой книги</h4>
+        <form action="{{ url_for('admin.add_book') }}" method="POST"  enctype=multipart/form-data>
+            {{ book_form.hidden_tag() }}
+            <div class="form-group">
+                {{ book_form.name.label }}
+                {{ book_form.name() }}
+            </div>
+            <div class="form-group">
+                {{ book_form.genre.label }}
+                {{ book_form.genre() }}
+            </div>
+            <div class="form-group">
+                {{ book_form.description.label }}
+                {{ book_form.description() }}
+            </div>
+            <div class="form-group">
+                {{ book_form.price.label }}
+                {{ book_form.price() }}
+            </div>
+            <div class="form-group">
+                <label for="addBook">Добавьте изображение книги</label>
+                <input type="file" name="file" class="form-control-file" id="addBook">
+            </div>
+                {{ book_form.submit }}
+        </form>
+    </div>
 </div>
 

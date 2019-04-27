@@ -1,3 +1,37 @@
-<div class="row">
-    <div class="col">управление заказами</div>
-</div>
+  <h4>Информация по всем заказам</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Пользователь</th>
+          <th scope="col">Дата заказа</th>
+          <th scope="col">Содержание</th>
+          <th scope="col">Доставка</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in full_order %}
+        <tr>
+          <td>
+            <b>Имя:</b> {{ item['user_info']['first_name'] }}<br>
+            <b>Фамилия:</b> {{ item['user_info']['last_name'] }}<br>
+            <b>Дата рождения:</b> {{ item['user_info']['birth_date'] }}<br>
+            <b>эл.почта:</b> {{ item['user_info']['email'] }}<br>
+            <b>логин:</b> {{ item['user_info']['username'] }}<br>
+          </td>
+          <td>{{ item['date'] }}</td>
+          <td>
+          {% for book in item['detail'] %}
+            - {{ book }}<br>
+          {% endfor %}
+          </td>
+          <td>
+            <b>телефон:</b> {{ item['deliver']['phone'] }}<br>
+            <b>регион:</b> {{ item['deliver']['region'] }}<br>
+            <b>город:</b> {{ item['deliver']['city'] }}<br>
+            <b>улица:</b> {{ item['deliver']['street'] }}<br>
+            <b>дом:</b> {{ item['deliver']['house'] }}<br>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
