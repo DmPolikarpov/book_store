@@ -8,10 +8,6 @@ blueprint = Blueprint('genre', __name__, url_prefix='/genre')
 @blueprint.route('/')
 def genre_index():
 	genre_list = Book.query.order_by(Book.genre.desc()).all()
-	#genre_list = Book.query.with_entities(Book.genre)
-	print('========================')
-	print(genre_list)
-	print('========================')
 	my_list = []
 	for genre in genre_list:
 		my_list.append(genre.genre) 
