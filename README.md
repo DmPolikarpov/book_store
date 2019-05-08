@@ -24,3 +24,18 @@ There are usual users and administrators on the website. For administrators the 
 - Execute “chmod +x run.sh”
 - Run command “./run.sh”
 
+# Main page
+![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/main_page.png)
+
+# Category
+![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/category.png)
+
+# Books
+![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/books.png)
+
+# Cart
+![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/cart.png)
+
+# Profile
+![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/profile.png)
+
