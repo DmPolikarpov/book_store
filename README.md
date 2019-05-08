@@ -1,4 +1,4 @@
-#An online bookstore “AlcoBookStore”.
+# An online bookstore “AlcoBookStore”.
 An online bookstore “AlcoBookStore” is created with Python/Flask, Bootstrap, PostgreSQL, Flask-SQLAlchemy.
 The website provides the next options for users:
 1. To select a book from the entire list; 
@@ -12,7 +12,7 @@ The website provides the next options for users:
 9. To view personal order history. 
 There are usual users and administrators on the website. For administrators the website provides options to add new books and authors, to manage orders and users.
 
-#How to run project locally.
+# How to run project locally.
 - Copy the project from Github.
 - Create a virtual environment.
 - Install software from requirements.txt: 
@@ -23,5 +23,4 @@ There are usual users and administrators on the website. For administrators the 
 - Execute “python filling_bd”.
 - Execute “chmod +x run.sh”
 - Run command “./run.sh”
-
 
