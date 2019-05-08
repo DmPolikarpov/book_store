@@ -25,17 +25,17 @@ There are usual users and administrators on the website. For administrators the 
 - Run command “./run.sh”
 
 # Main page
-![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/main_page.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/main_page.png)
 
 # Category
-![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/category.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/category.png)
 
 # Books
-![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/books.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/books.png)
 
 # Cart
-![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/cart.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/cart.png)
 
 # Profile
-![Image alt](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/profile.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/profile.png)
 
