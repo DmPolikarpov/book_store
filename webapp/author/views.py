@@ -19,9 +19,9 @@ def author_index():
 def author_info(author_id):
     author = Author.query.get_or_404(author_id)
     title = "О авторе"
-    book_name = str(author.books)
+    book_list = Book.query.filter(Book.author_id==author_id).all()
     feedback_form = AuthorFeedbackForm(author_id=author.id)
-    return render_template("author/more.html", page_title=title, author=author, feedback_form=feedback_form, book_name=book_name)
+    return render_template("author/more.html", page_title=title, author=author, book_list=book_list, feedback_form=feedback_form)
 
 
 @blueprint.route('/author/feedback', methods=['POST'])
