@@ -1,4 +1,4 @@
-from flask import  Blueprint, flash, render_template, redirect, request, url_for
+from flask import abort, Blueprint, flash, render_template, redirect, request, url_for
 from flask_login import current_user, login_required
 
 from webapp.db import db
@@ -21,7 +21,10 @@ def book_index():
 @blueprint.route('<int:book_id>', methods=['GET'])
 def book_info(book_id):
 	book = Book.query.get_or_404(book_id)
-	author = Author.query.get_or_404(book.author_id)
+	try:
+		author = Author.query.get(book.author_id)
+	except TypeError:
+		abort(404)
 	title = "О книге"
 	feedback_form = BookFeedbackForm(book_id=book.id)
 	return render_template("book/more.html", page_title=title, book=book, author=author, feedback_form=feedback_form)

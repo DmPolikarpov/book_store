@@ -13,10 +13,24 @@
         </div>
         <div class='col-8'>
             <h1>{{ book.name }}</h1>
-            <h4> Автор: {{ book.book_author.last_name }} {{ book.book_author.first_name }} <a href="{{ url_for('author.author_info', author_id=book.book_author.id)}}"><button type="hidden" name="author_id" value="{{ book.book_author.id }}" class="btn btn-outline-danger">Перейти к описанию автора</button></a></h4>
+            <h4>
+                {% if book.book_author %}
+                    Автор: {{ book.book_author.last_name }} {{ book.book_author.first_name }} <a href="{{ url_for('author.author_info', author_id=book.book_author.id)}}"><button type="hidden" name="author_id" value="{{ book.book_author.id }}" class="btn btn-outline-danger">Перейти к описанию автора</button></a>
+                {% else %}
+                    <h4>Автор: пока не указан</h4>
+                {% endif %}
+            </h4>
             <h4>Цена: {{ book.price }} рублей </h4>
+            {% if book.pages %}
             <h4>Количетсво страниц: {{ book.pages }}</h4>
+            {% else %}
+            <h4>Количетсво страниц: пока не указано</h4>
+            {% endif %}
+            {% if book.printed_in %}
             <h4>Год печати: {{ book.printed_in }}</h4>
+            {% else %}
+            <h4>Год печати: пока не указан</h4>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

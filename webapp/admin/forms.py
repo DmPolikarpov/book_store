@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileRequired
 
@@ -14,7 +14,7 @@ class AddAuthor(FlaskForm):
 
 class AddBook(FlaskForm):
     name = StringField('Имя', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите название книги'})
-    genre = StringField('Категория', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Впишите название категории'})
+    genre = SelectField('Категория', choices=[('пива','пиво'), ('вина','вино'), ('водка','водка'),('виски','виски'), ('коктейли','коктейли'), ('самогон','самогон')], validators=[DataRequired()], render_kw={"class": "form-control"})
     description = StringField('Описание', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Добавьте описание'})
     price = StringField('Цена', validators=[DataRequired()], render_kw={"class": "form-control", "placeholder": 'Добавьте цену'})
     submit = SubmitField('Отправить!', render_kw={"class": "btn btn-outline-danger"})
