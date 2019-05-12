@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import StringField, SubmitField, SelectField, SelectMultipleField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileField, FileRequired
-
 
 
 class AddAuthor(FlaskForm):

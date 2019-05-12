@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, flash, redirect, request, url_for
+from flask import abort, Blueprint, Flask, render_template, flash, redirect, request, url_for
 from webapp.user.decorators import admin_required
 from webapp.admin.forms import AddAuthor, AddBook
 
@@ -19,6 +19,7 @@ def admin_index():
     author_form = AddAuthor()
     book_form = AddBook()
     full_order = []
+    author_list = Author.query.order_by(Author.id.desc()).all()
     user_list = User.query.order_by(User.id.desc()).all()
     for user in user_list:
         user_info = {'first_name':user.first_name, 'last_name':user.last_name, 'birth_date':user.birth_date, 'email':user.email, 'username':user.username}
@@ -34,7 +35,7 @@ def admin_index():
                 order_detail.append(info)
             deliver = json.loads(order.deliver)
             full_order.append({'user_info':user_info, 'date':date, 'detail':order_detail, 'deliver':deliver})
-    return render_template('admin/index.html', page_title=title, author_form=author_form, book_form=book_form, full_order=full_order)
+    return render_template('admin/index.html', page_title=title, author_form=author_form, book_form=book_form, full_order=full_order, author_list=author_list)
 
 @blueprint.route('/add_author', methods=['POST'])
 @admin_required
@@ -67,7 +68,18 @@ def add_author():
 @blueprint.route('/add_book', methods=['POST'])
 @admin_required
 def add_book():
+    author_id_list = []
     form = AddBook()
+    try:
+        author_id = int(request.form['author.id'])
+    except ValueError:
+        abort(404)
+    author_list = Author.query.order_by(Author.id.desc()).all()
+    for author in author_list:
+        author_id_list.append(author.id)
+    if author_id not in author_id_list:
+        flash('Такого автора нет в списке. Пожалуйста, вначале добавьте автора, а потом его книгу.')
+        return redirect(url_for('admin.admin_index'))
     if not request.files["file"]:
         flash('Вы забыли добавить изображение книги!')
         return redirect(url_for('admin.admin_index'))
@@ -77,7 +89,7 @@ def add_book():
     image = os.path.join('media', filename)
     file.save(os.path.join(folder, filename))
     if form.validate_on_submit():
-        new_book = Book(name=form.name.data, genre=form.genre.data, description=form.description.data, price=form.price.data, image=image)
+        new_book = Book(name=form.name.data, author_id=author_id, genre=form.genre.data, description=form.description.data, price=form.price.data, image=image)
         db.session.add(new_book)
         db.session.commit()
         flash('Вы успешно добавили новую книгу!')
@@ -90,6 +102,8 @@ def add_book():
                     error
                 ))
         return redirect(url_for('admin.admin_index'))
+
+
 
 
 
