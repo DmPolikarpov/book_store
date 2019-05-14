@@ -22,7 +22,13 @@ def admin_index():
     author_list = Author.query.order_by(Author.id.desc()).all()
     user_list = User.query.order_by(User.id.desc()).all()
     for user in user_list:
-        user_info = {'first_name':user.first_name, 'last_name':user.last_name, 'birth_date':user.birth_date, 'email':user.email, 'username':user.username}
+        user_info = {
+                     'first_name':user.first_name,
+                     'last_name':user.last_name,
+                     'birth_date':user.birth_date,
+                     'email':user.email,
+                     'username':user.username
+                    }
         order_list = Order.query.filter(Order.user_id == user.id).all()
         for order in order_list:
             order_detail = []
@@ -50,7 +56,13 @@ def add_author():
     image = os.path.join('media/authors', filename)
     file.save(os.path.join(folder, filename))
     if form.validate_on_submit():
-        new_author = Author(first_name=form.first_name.data, last_name=form.last_name.data, birth_date=form.birth_date.data, description=form.description.data, image=image)
+        new_author = Author(
+                            first_name=form.first_name.data,
+                            last_name=form.last_name.data,
+                            birth_date=form.birth_date.data,
+                            description=form.description.data,
+                            image=image
+                           )
         db.session.add(new_author)
         db.session.commit()
         flash('Вы успешно добавили нового автора!')

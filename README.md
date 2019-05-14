@@ -18,6 +18,8 @@ There are usual users and administrators on the website. For administrators the 
 - Install software from requirements.txt: 
  pip install –r requirements.txt
 - Install PostgreSQL and create a new data base.
+- Add file "config.py" in the root of the project.
+- add SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost/db_name', SECRET_KEY='your_key', SQLALCHEMY_TRACK_MODIFICATIONS = False, REMEMBER_COOKIE_DURATION = timedelta(days=5), ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']), MAX_CONTENT_LENGTH = 16 * 1024 * 1024 in config.py.
 - Open cmd and go to root of the project.
 - Execute “python create_db”.
 - Execute “python filling_bd”.
@@ -25,17 +27,17 @@ There are usual users and administrators on the website. For administrators the 
 - Run command “./run.sh”
 
 # Main page
-![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/main_page.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/raw/master/screenshots/main_page.png)
 
 # Category
-![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/category.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/raw/master/screenshots/category.png)
 
 # Books
-![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/books.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/raw/master/screenshots/books.png)
 
 # Cart
-![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/cart.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/raw/master/screenshots/cart.png)
 
 # Profile
-![ScreenShot](https://github.com/DmPolikarpov/book_store/tree/master/screenshots/profile.png)
+![ScreenShot](https://github.com/DmPolikarpov/book_store/raw/master/screenshots/profile.png)
 
