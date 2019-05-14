@@ -18,7 +18,7 @@ There are usual users and administrators on the website. For administrators the 
 - Install software from requirements.txt: 
  pip install –r requirements.txt
 - Install PostgreSQL and create a new data base.
-- Add file "config.py" in the root of the project.
+- Add file "config.py" in the folder "webapp" of the project.
 - add SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost/db_name', SECRET_KEY='your_key', SQLALCHEMY_TRACK_MODIFICATIONS = False, REMEMBER_COOKIE_DURATION = timedelta(days=5), ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']), MAX_CONTENT_LENGTH = 16 * 1024 * 1024 in config.py.
 - Open cmd and go to root of the project.
 - Execute “python create_db”.
